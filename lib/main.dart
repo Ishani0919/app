@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+
 
 void main() {
   runApp(MaterialApp(home: Home()));
@@ -11,23 +13,29 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+<<<<<<< HEAD
         title: const Text(
           "Taxi Fare Calculator",
           style: TextStyle(
-            fontWeight: FontWeight.bold, 
-            color: Colors.black, 
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
           ),
         ),
-        centerTitle: true, 
-        backgroundColor: Colors.amber, 
+        centerTitle: true,
+        backgroundColor: Colors.amber,
       ),
-      body: MyApp() ,
+      body: const MyApp(),
+=======
+        title: Text("App1"),
+        
+      ),
      
+>>>>>>> a2895f7d7dad5497280bc18fe720a04dc476e1e4
     );
   }
 }
 
- class MyApp extends StatefulWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
@@ -35,10 +43,46 @@ class Home extends StatelessWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  // Controllers for TextFields
+  final TextEditingController distanceCtrl = TextEditingController();
+  final TextEditingController rateCtrl = TextEditingController();
+  final TextEditingController waitingCtrl = TextEditingController();
+  final TextEditingController tipCtrl = TextEditingController();
+
+  double baseFare = 0;
+  double waitingCharge = 0;
+  double commission = 0;
+
+  // Calculate fare
+  void calculateFare() {
+    double distance = double.tryParse(distanceCtrl.text) ?? 0;
+    double rate = double.tryParse(rateCtrl.text) ?? 0;
+    double waiting = double.tryParse(waitingCtrl.text) ?? 0;
+
+    baseFare = distance * rate;
+    waitingCharge = waiting * rate;
+    commission = (baseFare + waitingCharge) * 0.05;
+
+    setState(() {}); // Refresh UI
+  }
+
+  // View final fare
+  void viewFinalFare() {
+    double tip = double.tryParse(tipCtrl.text) ?? 0;
+    double finalFare = baseFare + waitingCharge - commission + tip;
+
+    //Navigator.push(
+     // context,
+      //MaterialPageRoute(
+       // builder: (context) => FinalFare(finalFare: finalFare),
+      //),
+   // );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Center(
-       child: SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Card(
@@ -64,8 +108,10 @@ class _MyAppState extends State<MyApp> {
                   ),
                   const SizedBox(height: 20),
 
-                  //___________________ Input Fields________________________
+                  // Input Fields
                   TextField(
+                    controller: distanceCtrl,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: "Distance (km)",
                       border: OutlineInputBorder(
@@ -75,6 +121,8 @@ class _MyAppState extends State<MyApp> {
                   ),
                   const SizedBox(height: 12),
                   TextField(
+                    controller: rateCtrl,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: "Rate per km",
                       border: OutlineInputBorder(
@@ -84,6 +132,8 @@ class _MyAppState extends State<MyApp> {
                   ),
                   const SizedBox(height: 12),
                   TextField(
+                    controller: waitingCtrl,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: "Waiting Time (optional)",
                       border: OutlineInputBorder(
@@ -93,6 +143,8 @@ class _MyAppState extends State<MyApp> {
                   ),
                   const SizedBox(height: 12),
                   TextField(
+                    controller: tipCtrl,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: "Tip (optional)",
                       border: OutlineInputBorder(
@@ -102,7 +154,7 @@ class _MyAppState extends State<MyApp> {
                   ),
                   const SizedBox(height: 20),
 
-                  
+                  // Fare Summary Box
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
@@ -110,28 +162,22 @@ class _MyAppState extends State<MyApp> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Column(
-                      children: const [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text("Base Fare"), Text("Rs. 0.00")],
-                        ),
-                        SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text("Commission (5%)"), Text("Rs. 0.00")],
-                        ),
+                      children: [
+                        row("Base Fare", baseFare),
+                        const SizedBox(height: 8),
+                        row("Waiting Charge", waitingCharge),
+                        const SizedBox(height: 8),
+                        row("Commission (5%)", commission),
                       ],
                     ),
                   ),
                   const SizedBox(height: 20),
 
-                  
+                  // Buttons
                   SizedBox(
                     height: 45,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Add your calculation logic here
-                      },
+                      onPressed: calculateFare,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.amber,
                         shape: RoundedRectangleBorder(
@@ -148,9 +194,7 @@ class _MyAppState extends State<MyApp> {
                   SizedBox(
                     height: 45,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Add your view logic here
-                      },
+                      onPressed: viewFinalFare,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(255, 4, 122, 239),
                         shape: RoundedRectangleBorder(
@@ -169,10 +213,17 @@ class _MyAppState extends State<MyApp> {
           ),
         ),
       ),
-      
-      
-      
-      
+    );
+  }
+
+  // Helper to show rows in summary box
+  Widget row(String text, double value) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(text),
+        Text("Rs. ${value.toStringAsFixed(2)}"),
+      ],
     );
   }
 }
