@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 
@@ -12,6 +13,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+<<<<<<< HEAD
         title: const Text(
           "Taxi Fare Calculator",
           style: TextStyle(
@@ -23,6 +25,12 @@ class Home extends StatelessWidget {
         backgroundColor: Colors.amber,
       ),
       body: const MyApp(),
+=======
+        title: Text("App1"),
+        
+      ),
+     
+>>>>>>> a2895f7d7dad5497280bc18fe720a04dc476e1e4
     );
   }
 }
