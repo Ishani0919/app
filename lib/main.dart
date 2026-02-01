@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-
+import 'second.dart';
 
 void main() {
   runApp(MaterialApp(home: Home()));
@@ -13,7 +13,6 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-<<<<<<< HEAD
         title: const Text(
           "Taxi Fare Calculator",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
@@ -177,6 +176,7 @@ class _MyAppState extends State<MyApp> {
         backgroundColor: Colors.amber,
       ),
       body: const MyApp(),
+<<<<<<< HEAD
 =======
         title: Text("App1"),
         
@@ -184,6 +184,8 @@ class _MyAppState extends State<MyApp> {
       ),
      
 >>>>>>> a2895f7d7dad5497280bc18fe720a04dc476e1e4
+=======
+>>>>>>> SEU_IS_20_ICT_007
     );
   }
 }
@@ -224,12 +226,12 @@ class _MyAppState extends State<MyApp> {
     double tip = double.tryParse(tipCtrl.text) ?? 0;
     double finalFare = baseFare + waitingCharge - commission + tip;
 
-    //Navigator.push(
-     // context,
-      //MaterialPageRoute(
-       // builder: (context) => FinalFare(finalFare: finalFare),
-      //),
-   // );
+    Navigator.push(
+     context,
+      MaterialPageRoute(
+        builder: (context) => FinalFare(finalFare: finalFare),
+      ),
+    );
   }
 
   @override
