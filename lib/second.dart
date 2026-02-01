@@ -75,7 +75,6 @@ class FinalFare extends StatelessWidget {
                       ),
                     ),
 
-<<<<<<< HEAD
                     const Divider(height: 30, thickness: 1.5),
 
                     // Fare details
@@ -142,24 +141,6 @@ class FinalFare extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 14,
                           color: Colors.grey.shade700,
-=======
-                    const SizedBox(height: 24),
-
-                    // Fare Details
-                    Text("Base Fare: Rs. $baseFare"),
-                    Text("Commission: Rs. $commission"),
-                    Text("Waiting Charge: Rs. $waiting"),
-                    Text("Tip: Rs. $tip"),
-
-                    const Divider(height: 30, thickness: 2),
-
-                    Center(
-                      child: Text(
-                        "Total Fare: Rs. $finalFare",
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
->>>>>>> SEU_IS_20_ICT_007
                         ),
                       ),
                     ),
@@ -172,7 +153,6 @@ class FinalFare extends StatelessWidget {
       ),
     );
   }
-<<<<<<< HEAD
 
   Widget infoRow(String label, double value) {
     return Padding(
@@ -192,6 +172,4 @@ class FinalFare extends StatelessWidget {
       ),
     );
   }
-=======
->>>>>>> SEU_IS_20_ICT_007
 }

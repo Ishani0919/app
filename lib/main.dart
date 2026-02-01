@@ -1,204 +1,30 @@
-
 import 'package:flutter/material.dart';
 import 'second.dart';
 
 void main() {
-  runApp(MaterialApp(home: Home()));
+  runApp(const MyApp());
 }
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Taxi Fare Calculator",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.amber,
-      ),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: FareCalculator(),
     );
   }
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class FareCalculator extends StatefulWidget {
+  const FareCalculator({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<FareCalculator> createState() => _FareCalculatorState();
 }
 
-class _MyAppState extends State<MyApp> {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Card(
-            elevation: 6,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Icon(Icons.local_taxi, size: 70, color: Colors.amber),
-                  const SizedBox(height: 10),
-                  const Center(
-                    child: Text(
-                      "Taxi Fare Calculator",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Input Fields
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "Distance (km)",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "Rate per km",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "Waiting Time (optional)",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "Tip (optional)",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      children: const [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text("Base Fare"), Text("Rs. 0.00")],
-                        ),
-                        SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [Text("Commission (5%)"), Text("Rs. 0.00")],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-
-                  SizedBox(
-                    height: 45,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Add your calculation logic here
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.amber,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Text(
-                        "Calculate Fare",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    height: 45,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Add your view logic here
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 4, 122, 239),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Text(
-                        "View Final Fare",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-=======
-<<<<<<< HEAD
-        title: const Text(
-          "Taxi Fare Calculator",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.amber,
-      ),
-      body: const MyApp(),
-<<<<<<< HEAD
-=======
-        title: Text("App1"),
-        
->>>>>>> b1f0cda685d72c8323266d9cdc27f36950db97a1
-      ),
-     
->>>>>>> a2895f7d7dad5497280bc18fe720a04dc476e1e4
-=======
->>>>>>> SEU_IS_20_ICT_007
-    );
-  }
-}
-
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  // Controllers for TextFields
+class _FareCalculatorState extends State<FareCalculator> {
   final TextEditingController distanceCtrl = TextEditingController();
   final TextEditingController rateCtrl = TextEditingController();
   final TextEditingController waitingCtrl = TextEditingController();
@@ -208,8 +34,7 @@ class _MyAppState extends State<MyApp> {
   double waitingCharge = 0;
   double commission = 0;
 
-  // Calculate fare
-  void calculateFare() {
+  void calculate() {
     double distance = double.tryParse(distanceCtrl.text) ?? 0;
     double rate = double.tryParse(rateCtrl.text) ?? 0;
     double waiting = double.tryParse(waitingCtrl.text) ?? 0;
@@ -218,151 +43,139 @@ class _MyAppState extends State<MyApp> {
     waitingCharge = waiting * rate;
     commission = (baseFare + waitingCharge) * 0.05;
 
-    setState(() {}); // Refresh UI
-  }
-
-  // View final fare
-  void viewFinalFare() {
-    double tip = double.tryParse(tipCtrl.text) ?? 0;
-    double finalFare = baseFare + waitingCharge - commission + tip;
-
-    Navigator.push(
-     context,
-      MaterialPageRoute(
-        builder: (context) => FinalFare(finalFare: finalFare),
-      ),
-    );
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Card(
-            elevation: 6,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Icon(Icons.local_taxi, size: 70, color: Colors.amber),
-                  const SizedBox(height: 10),
-                  const Center(
-                    child: Text(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Taxi Fare Calculator"),
+        backgroundColor: Colors.amber,
+        centerTitle: true,
+      ),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Card(
+              elevation: 6,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.local_taxi, size: 80, color: Colors.amber),
+                    const SizedBox(height: 10),
+                    const Text(
                       "Taxi Fare Calculator",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 
-                  // Input Fields
-                  TextField(
-                    controller: distanceCtrl,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: "Distance (km)",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
+                    TextField(
+                      controller: distanceCtrl,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: "Distance (km)",
+                        border: OutlineInputBorder(),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                  TextField(
-                    controller: rateCtrl,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: "Rate per km",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  TextField(
-                    controller: waitingCtrl,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: "Waiting Time (optional)",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  TextField(
-                    controller: tipCtrl,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: "Tip (optional)",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 10),
 
-                  // Fare Summary Box
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
-                      borderRadius: BorderRadius.circular(10),
+                    TextField(
+                      controller: rateCtrl,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: "Rate per km",
+                        border: OutlineInputBorder(),
+                      ),
                     ),
-                    child: Column(
-                      children: [
-                        row("Base Fare", baseFare),
-                        const SizedBox(height: 8),
-                        row("Waiting Charge", waitingCharge),
-                        const SizedBox(height: 8),
-                        row("Commission (5%)", commission),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 10),
 
-                  // Buttons
-                  SizedBox(
-                    height: 45,
-                    child: ElevatedButton(
-                      onPressed: calculateFare,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.amber,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
+                    TextField(
+                      controller: waitingCtrl,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: "Waiting Time",
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+
+                    TextField(
+                      controller: tipCtrl,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        labelText: "Tip",
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Column(
+                        children: [
+                          row("Base Fare", baseFare),
+                          row("Waiting Charge", waitingCharge),
+                          row("Commission (5%)", commission),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.amber,
+                          padding: const EdgeInsets.symmetric(vertical: 14),
                         ),
-                      ),
-                      child: const Text(
-                        "Calculate Fare",
-                        style: TextStyle(color: Colors.black),
+                        onPressed: calculate,
+                        child: const Text("Calculate Fare"),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    height: 45,
-                    child: ElevatedButton(
-                      onPressed: viewFinalFare,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 4, 122, 239),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
+                    const SizedBox(height: 10),
+
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.cyan,
+                          padding: const EdgeInsets.symmetric(vertical: 14),
                         ),
-                      ),
-                      child: const Text(
-                        "View Final Fare",
-                        style: TextStyle(color: Colors.white),
+                        onPressed: () {
+                          double tip = double.tryParse(tipCtrl.text) ?? 0;
+
+                          double finalFare =
+                              baseFare + waitingCharge + tip - commission;
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FinalFare(
+                                finalFare: finalFare,
+                                baseFare: baseFare,
+                                waiting: waitingCharge,
+                                tip: tip,
+                                commission: commission,
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Text("View Final Fare"),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -371,14 +184,16 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
-  // Helper to show rows in summary box
   Widget row(String text, double value) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(text),
-        Text("Rs. ${value.toStringAsFixed(2)}"),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(text),
+          Text("Rs. ${value.toStringAsFixed(2)}"),
+        ],
+      ),
     );
   }
 }
