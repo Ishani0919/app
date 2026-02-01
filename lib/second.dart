@@ -8,13 +8,14 @@ class FinalFare extends StatelessWidget {
   final double tip;
 
   const FinalFare({
-    super.key,
-    required this.finalFare,
-    this.baseFare = 0,
-    this.commission = 0,
-    this.waiting = 0,
-    this.tip = 0,
-  });
+  super.key,
+  required this.finalFare,
+  required this.baseFare,
+  required this.commission,
+  required this.waiting,
+  required this.tip,
+});
+
 
   @override
   Widget build(BuildContext context) {

@@ -10,13 +10,39 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FareCalculator(),
+=======
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Taxi Fare Calculator",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.amber,
+      ),
+      body: const MyApp(),
+<<<<<<< HEAD
+=======
+        title: Text("App1"),
+        
+      ),
+     
+>>>>>>> a2895f7d7dad5497280bc18fe720a04dc476e1e4
+=======
+>>>>>>> SEU_IS_20_ICT_007
+>>>>>>> 42b822008295a2d4dbfc0bfdd9c707c5f28c9b1a
     );
   }
 }
 
+<<<<<<< HEAD
 class FareCalculator extends StatefulWidget {
   const FareCalculator({super.key});
 
@@ -25,6 +51,20 @@ class FareCalculator extends StatefulWidget {
 }
 
 class _FareCalculatorState extends State<FareCalculator> {
+=======
+class HEAD {
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  // Controllers for TextFields
+>>>>>>> 42b822008295a2d4dbfc0bfdd9c707c5f28c9b1a
   final TextEditingController distanceCtrl = TextEditingController();
   final TextEditingController rateCtrl = TextEditingController();
   final TextEditingController waitingCtrl = TextEditingController();
