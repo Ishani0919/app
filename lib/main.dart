@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'second.dart';
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await Supabase.initialize(
     url: 'https://cysxgxirmwuqovyscylv.supabase.co',
     anonKey: 'sb_publishable_gAfr4RuI3NO-jbE-23pbTg_w_RKNNtU',
   );
-  runApp(MaterialApp(home: Home()));
+   runApp(MaterialApp(home: Home()));
 }
 
 
@@ -29,20 +32,8 @@ class Home extends StatelessWidget {
         backgroundColor: Colors.amber,
       ),
       body: const MyApp(),
-<<<<<<< HEAD
-=======
-        title: Text("App1"),
-        
-      ),
-     
->>>>>>> a2895f7d7dad5497280bc18fe720a04dc476e1e4
-=======
->>>>>>> SEU_IS_20_ICT_007
     );
   }
-}
-
-class HEAD {
 }
 
 class MyApp extends StatefulWidget {
@@ -53,6 +44,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
+
+  final supabase = Supabase.instance.client;
+
   // Controllers for TextFields
   final TextEditingController distanceCtrl = TextEditingController();
   final TextEditingController rateCtrl = TextEditingController();
@@ -62,6 +57,35 @@ class _MyAppState extends State<MyApp> {
   double baseFare = 0;
   double waitingCharge = 0;
   double commission = 0;
+
+ 
+  Future<void> fetchFares() async {
+    final data = await supabase.from('fares').select();
+    print(data); // just print (no UI change)
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchFares(); // optional
+  }
+
+  Future<void> saveFare() async {
+    double distance = double.tryParse(distanceCtrl.text) ?? 0;
+    double rate = double.tryParse(rateCtrl.text) ?? 0;
+    double waiting = double.tryParse(waitingCtrl.text) ?? 0;
+    double tip = double.tryParse(tipCtrl.text) ?? 0;
+
+    double total = baseFare + waitingCharge - commission + tip;
+
+    await supabase.from('newDB').insert({
+      'distance': distance,
+      'rate': rate,
+      'waiting': waiting,
+      'tip': tip,
+      'total': total,
+    });
+  }
 
   // Calculate fare
   void calculateFare() {
@@ -77,11 +101,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   // View final fare
-  void viewFinalFare() {
+  void viewFinalFare() async {
+    await saveFare(); // ✅ ADDED SAVE
+
     double tip = double.tryParse(tipCtrl.text) ?? 0;
     double finalFare = baseFare + waitingCharge - commission + tip;
 
-Navigator.push(
+ Navigator.push(
      context,
       MaterialPageRoute(
         builder: (context) => FinalFare(finalFare: finalFare,baseFare: baseFare,
@@ -229,7 +255,6 @@ Navigator.push(
     );
   }
 
-  // Helper to show rows in summary box
   Widget row(String text, double value) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
