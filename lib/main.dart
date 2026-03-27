@@ -67,7 +67,10 @@ class _MyAppState extends State<MyApp> {
     Navigator.push(
      context,
       MaterialPageRoute(
-        builder: (context) => FinalFare(finalFare: finalFare),
+        builder: (context) => FinalFare(finalFare: finalFare,baseFare: baseFare,
+        commission: commission,
+        waiting: waitingCharge,
+        tip: tip),
       ),
     );
   }
