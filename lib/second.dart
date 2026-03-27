@@ -19,73 +19,107 @@ class FinalFare extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         title: const Text("Taxi Receipt"),
         backgroundColor: Colors.amber,
         centerTitle: true,
+        elevation: 5,
       ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Card(
-            elevation: 10,
+            elevation: 12,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(25),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.local_taxi,
-                      size: 70, color: Colors.amber),
-                  const SizedBox(height: 10),
-                  const Text(
-                    "Taxi Fare Receipt",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Gradient Header
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(25)),
+                    gradient: const LinearGradient(
+                      colors: [Colors.amber, Colors.orangeAccent],
+                    ),
                   ),
-                  const Divider(height: 30),
-
-                  infoRow("Base Fare", baseFare),
-                  infoRow("Waiting Charge", waiting),
-                  infoRow("Tip", tip),
-                  infoRow("Commission (5%)", commission),
-
-                  const Divider(height: 30),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Total Fare",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
+                  child: Column(
+                    children: const [
+                      Icon(Icons.local_taxi, size: 60, color: Colors.white),
+                      SizedBox(height: 10),
                       Text(
-                        "Rs. ${finalFare.toStringAsFixed(2)}",
-                        style: const TextStyle(
-                          fontSize: 24,
+                        "Taxi Fare Receipt",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
-                          color: Colors.green,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 20),
+                ),
 
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.amber,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
+                Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    children: [
+                      // Breakdown
+                      fareRow(Icons.money, "Base Fare", baseFare, Colors.blue),
+                      fareRow(Icons.timer, "Waiting Charge", waiting, Colors.orange),
+                      fareRow(Icons.monetization_on, "Tip", tip, Colors.green),
+                      fareRow(Icons.percent, "Commission (5%)", commission, Colors.red),
+
+                      const Divider(height: 40, thickness: 2),
+
+                      // Total Fare
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            "Total Fare",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "Rs. ${finalFare.toStringAsFixed(2)}",
+                            style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.green,
+                            ),
+                          ),
+                        ],
                       ),
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text("Done"),
-                    ),
+
+                      const SizedBox(height: 30),
+
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton.icon(
+                          icon: const Icon(Icons.done),
+                          label: const Text(
+                            "Done",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.amber,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -93,18 +127,27 @@ class FinalFare extends StatelessWidget {
     );
   }
 
-  Widget infoRow(String label, double value) {
+  Widget fareRow(IconData icon, String label, double value, Color color) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label,
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-          Text("Rs. ${value.toStringAsFixed(2)}",
-              style:
-                  const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+          CircleAvatar(
+            backgroundColor: color,
+            radius: 18,
+            child: Icon(icon, color: Colors.white, size: 20),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              label,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            ),
+          ),
+          Text(
+            "Rs. ${value.toStringAsFixed(2)}",
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+          ),
         ],
       ),
     );
