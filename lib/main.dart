@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'second.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+Future<void> main() async {
+  await Supabase.initialize(
+    url: 'https://cysxgxirmwuqovyscylv.supabase.co',
+    anonKey: 'sb_publishable_gAfr4RuI3NO-jbE-23pbTg_w_RKNNtU',
+  );
   runApp(MaterialApp(home: Home()));
 }
+
 
 class Home extends StatelessWidget {
   const Home({super.key});
