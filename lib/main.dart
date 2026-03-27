@@ -75,10 +75,13 @@ class _MyAppState extends State<MyApp> {
     double tip = double.tryParse(tipCtrl.text) ?? 0;
     double finalFare = baseFare + waitingCharge - commission + tip;
 
-    Navigator.push(
+Navigator.push(
      context,
       MaterialPageRoute(
-        builder: (context) => FinalFare(finalFare: finalFare),
+        builder: (context) => FinalFare(finalFare: finalFare,baseFare: baseFare,
+        commission: commission,
+        waiting: waitingCharge,
+        tip: tip),
       ),
     );
   }
